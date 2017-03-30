@@ -1,8 +1,8 @@
 {
-  "name": "react-starterkit",
-  "version": "4.0.0",
+  "name": "react-starterkit-new",
+  "version": "5.0.0",
   "description": "React starterkit with Koa",
-  "author": "Alberto Gasparin",
+  "authors": ["Alberto Gasparin", "DakEnviy"],
   "keywords": [
     "react",
     "koa",
