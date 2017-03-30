@@ -1,12 +1,16 @@
-# React starterkit
+# Koa react boilerplate
 
 
 [![Dependency Status](https://david-dm.org/albertogasparin/react-starterkit.svg?style=flat-square)](https://david-dm.org/albertogasparin/react-starterkit)
 [![devDependency Status](https://david-dm.org/albertogasparin/react-starterkit/dev-status.svg?style=flat-square)](https://david-dm.org/albertogasparin/react-starterkit#info=devDependencies)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://albertogasparin.mit-license.org)
 
-Server: Koa, React + router + Redux isomorphic rendering, Marko template streaming  
+**Forked from: https://github.com/albertogasparin/react-starterkit**
+
+Server: Koa, React + router + Redux isomorphic rendering, Pug template streaming  
 Client: React + router + Redux, Sass, SVG icons setup
+
+*... And ultimate hot-reloading*
 
 
 
@@ -24,7 +28,7 @@ To start the node server (watching) run:
 ``` sh
 npm run watch
 ```
-The default browser entry point while developing is `127.0.0.1:3000`. 
+The default browser entry point while developing is `localhost:3000`. 
 Webpack middleware handles all `/assets` requests, while Koa handles all others
 
 
@@ -56,7 +60,7 @@ To run node with production env:
 ``` sh
 NODE_ENV=production npm run start
 ```
-Now `127.0.0.1:3000` will serve your entire app.
+Now `localhost:3000` will serve your entire app.
 
 ##### No need of a node server?
 

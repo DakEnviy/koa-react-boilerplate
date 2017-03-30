@@ -1,14 +1,21 @@
 {
-  "name": "react-starterkit-new",
+  "name": "koa-react-boilerplate",
   "version": "5.0.0",
-  "description": "React starterkit with Koa",
+  "description": "A modern React boilerplate with Koa",
   "authors": ["Alberto Gasparin", "DakEnviy"],
   "keywords": [
     "react",
     "koa",
     "starter kit",
     "redux",
-    "router"
+    "router",
+    "boilerplate",
+    "pug",
+    "jade",
+    "mocha",
+    "lint",
+    "eslint",
+    "stylelint"
   ],
   "private": true,
   "config": {
