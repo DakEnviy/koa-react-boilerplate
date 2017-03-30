@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    meta(name='viewport', content='width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+
+    title Error #{status}
+
+    if global.ENV !== 'development'
+      link(rel='stylesheet', href='#{global.CONFIG_CLIENT.publicPath}assets/app.css')
+
+  body
+
+    #error
+      if status === 404
+        h1 404: something missing
+        p It looks like the resource you were looking for no longer exists or you mispelled the URL
+
+      else
+        h1 Ops! Something went wrong
+        p It looks like we were not able to handle your request
+
+        if global.ENV !== 'development'
+          h2 Message:
+          pre
+            code #{error ? error.message : null}
+
+          h2 Stack:
+          pre
+            code #{error ? error.stack : null}
+

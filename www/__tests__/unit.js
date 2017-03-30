@@ -29,12 +29,12 @@ describe('routesWww()', () => {
     td.verify(router.get(td.matchers.isA(String), td.matchers.isA(Function)));
   });
 
-  describe('ctx.render()', () => {
-    it('should render template to body as a stream', () => {
-      ctx.render(__dirname + '/../errors', 'error');
-      expect(ctx.body).to.be.instanceof(stream.Readable);
-    });
-  });
+  // describe('ctx.render()', () => {
+  //   it('should render template to body as a stream', () => {
+  //     ctx.render(__dirname + '/../errors', 'error');
+  //     expect(ctx.body).to.be.instanceof(stream.Readable);
+  //   });
+  // });
 
   describe('ctx.renderSync()', () => {
     it('should render template to body as a string', () => {

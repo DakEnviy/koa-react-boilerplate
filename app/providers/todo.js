@@ -1,5 +1,4 @@
-/* eslint-disable complexity */
-import _ from 'lodash';
+import { keyBy, map, union, pickBy } from 'lodash';
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 
@@ -26,26 +25,25 @@ export const reducer = handleActions({
 
   [types.LOAD] (state, { payload }) {
     return {
-      byId: _.keyBy(payload, (m) => m.id),
-      ids: _.map(payload, (m) => m.id),
+      byId: keyBy(payload, (m) => m.id),
+      ids: map(payload, (m) => m.id),
     };
   },
 
   [types.ADD] (state, { payload }) {
     let entities = [].concat(payload);
-    let byId = _.keyBy(entities, (m) => m.id);
-    let orderedIds = _.map(entities, (m) => m.id); // better than Object.keys to preserve order
+    let byId = keyBy(entities, (m) => m.id);
+    let orderedIds = map(entities, (m) => m.id); // better than Object.keys to preserve order
     return {
       byId: { ...state.byId, ...byId },
-      ids: _.union(state.ids, orderedIds),
+      ids: union(state.ids, orderedIds),
     };
   },
 
   [types.REMOVE] (state, { payload }) {
-    let entities = [].concat(payload);
-    let ids = entities.map((m) => m.id);
+    let ids = [].concat(payload);
     return {
-      byId: _.pickBy(state.byId, (ent) => ids.indexOf(ent.id) === -1),
+      byId: pickBy(state.byId, (ent) => ids.indexOf(ent.id) === -1),
       ids: state.ids.filter((id) => ids.indexOf(id) === -1),
     };
   },
@@ -101,7 +99,7 @@ export const actions = {
           dispatch(actions.add(resp));
         })
         .catch((err) => {
-          actions.remove(tmpTodo);
+          actions.remove(tmpTodo.id);
           alert(err.message); // eslint-disable-line no-alert
         });
     };

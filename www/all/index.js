@@ -61,18 +61,28 @@ function *all (next) {
     },
   };
 
-  this.render(__dirname, 'index', {
-    // Async template data, returns a promise handled by marko
-    getRenderedApp: co(function *() {
-      let reduxStore = createMainStore({}, api, thunkMiddleware);
-      let html = renderApp(reduxStore, renderProps);
-      if (asyncActions.length) {
-        yield asyncActions;
-        html = renderApp(reduxStore, renderProps);
-      }
-      return { html, state: reduxStore.getState() };
-    }).catch((err) => this.app.emit('error', err)),
+  const store = createMainStore({}, api, thunkMiddleware);
+  let html = renderApp(store, renderProps);
+  if (asyncActions.length) {
+    yield asyncActions;
+    html = renderApp(store, renderProps);
+  }
+  this.renderSync(__dirname, 'index', {
+    html, state: store.getState(),
   });
+
+  // this.renderSync(__dirname, 'index', {
+  //   // Async template data, returns a promise handled by pug
+  //   getRenderedApp: co(function *() {
+  //     let reduxStore = createMainStore({}, api, thunkMiddleware);
+  //     let html = renderApp(reduxStore, renderProps);
+  //     if (asyncActions.length) {
+  //       yield asyncActions;
+  //       html = renderApp(reduxStore, renderProps);
+  //     }
+  //     return { html, state: reduxStore.getState() };
+  //   }).catch((err) => this.app.emit('error', err)),
+  // });
 }
 
 

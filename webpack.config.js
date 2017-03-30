@@ -1,4 +1,5 @@
 'use strict';
+process.noDeprecation = true;
 
 /**
  * Load dependencies

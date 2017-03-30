@@ -1,8 +1,8 @@
-
 import path from 'path';
 import koaRouter from 'koa-router';
-import _ from 'lodash';
-import marko from 'marko';
+import { forEach } from 'lodash';
+import pug from 'pug';
+// import marko from 'marko';
 
 import config from '../lib/config';
 import errorHandler from './errors';
@@ -22,32 +22,35 @@ export default function setup (app) {
   // add global error handling
   errorHandler(app);
 
-  const $global = {
+  const global = {
     ENV: config.env,
     CONFIG_CLIENT: config.client,
   };
 
   // Enhance context with .render() template method
   app.use(function *(next) {
-    function getTpl (p, n) {
-      return marko.load(path.join(p, 'templates', n + '.marko'), { writeToDisk: false });
+    function getTpl (tplPath, name) {
+      return pug.compileFile(path.join(tplPath, 'templates', name + '.pug'));
+      // return marko.load(path.join(tplPath, 'templates', name + '.marko'), { writeToDisk: false });
     }
 
     Object.assign(this, {
-      render (routePath, tplName, locals = {}) {
-        this.type = 'text/html';
-        this.body = getTpl(routePath, tplName).stream({ $global, ...locals });
-      },
+      // render (routePath, tplName, locals = {}) {
+      //   this.type = 'text/html';
+      //   // this.body = getTpl(routePath, tplName).stream({ $global, ...locals });
+      //   this.body = getTpl(routePath, tplName)({ $global, ...locals });
+      // },
       renderSync (routePath, tplName, locals = {}) {
         this.type = 'text/html';
-        this.body = getTpl(routePath, tplName).renderToString({ $global, ...locals });
+        // this.body = getTpl(routePath, tplName).renderToString({ $global, ...locals });
+        this.body = getTpl(routePath, tplName)({ global, ...locals });
       },
     });
     yield next;
   });
 
   // add all routes to router
-  _.forEach(routes, (fn, key) => {
+  forEach(routes, (fn, key) => {
     let [ method, routePath ] = key.split(' '); // eg: GET /foo/:id
     router[method.toLowerCase()](routePath, fn);
   });

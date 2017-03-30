@@ -1,0 +1,47 @@
+- var publicPath = global.CONFIG_CLIENT.publicPath
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible' content='ie=edge')
+    meta(name='viewport'
+      content='width=device-width,user-scalable=no,' +
+        'initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+
+    title App
+
+    if global.ENV !== 'development'
+      link(rel='stylesheet'
+        href=publicPath+'assets/app.css')
+
+    // TODO: favicon
+
+    script(defer src=publicPath+'assets/app.js')
+
+  body
+
+    if global.ENV !== 'development'
+      div(style='position:absolute; visibility: hidden; height: 0;')
+        object(type='image/svg+xml'
+          data=publicPath+'assets/icons.svg'
+          onload='this.parentNode.replaceChild(this.getSVGDocument().childNodes[0], this);')
+
+    #app!= html
+    script.
+      window.__INITIAL_STATE__ = !{JSON.stringify(state || {})};
+
+    // Google Analytics
+    if(global.CONFIG_CLIENT.gaProperty)
+      script.
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+          a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', '${out.global.CONFIG_CLIENT.gaProperty}', 'auto');
+        ga('set', 'transport', 'beacon');
+        ga('send', 'pageview');
+    else
+      script.
+        var ga = console.info.bind(console);

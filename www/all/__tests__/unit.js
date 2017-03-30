@@ -11,9 +11,11 @@ describe('GET *', () => {
 
   describe('if existing path', () => {
     it('should call render', function *() {
-      ctx = { url: '/', ...td.object(['render']) };
+      // ctx = { url: '/', ...td.object(['render']) };
+      ctx = { url: '/', ...td.object(['renderSync']) };
       yield route.call(ctx, null);
-      td.verify(ctx.render(td.matchers.isA(String), 'index', td.matchers.isA(Object)));
+      // td.verify(ctx.render(td.matchers.isA(String), 'index', td.matchers.isA(Object)));
+      td.verify(ctx.renderSync(td.matchers.isA(String), 'index', td.matchers.isA(Object)));
     });
   });
 

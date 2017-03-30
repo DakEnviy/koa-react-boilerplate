@@ -26,7 +26,7 @@ class Todos extends Component {
     }
   }
 
-  hadleTodoAdd () {
+  handleTodoAdd () {
     let { actions } = this.props;
     actions.todo.addAsync('New todo');
   }
@@ -35,7 +35,7 @@ class Todos extends Component {
     return (
       <div className="Todos">
         <TodoList {...this.props} />
-        <button onClick={this.hadleTodoAdd.bind(this)}>
+        <button onClick={this.handleTodoAdd.bind(this)}>
           <svg width="24" height="24">
             <use xlinkHref="#i-add" />
           </svg>
