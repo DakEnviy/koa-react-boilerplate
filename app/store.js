@@ -19,5 +19,14 @@ export default function (initialState, api, thunkMiddleware = thunk) {
   );
 
   store = createStore(reducers, initialState, enhancer);
+
+  if (module.hot) {
+    // Enable hot module replacement for reducers
+    module.hot.accept('./providers', () => {
+      const nextRootReducer = require('./providers').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
   return store;
 }

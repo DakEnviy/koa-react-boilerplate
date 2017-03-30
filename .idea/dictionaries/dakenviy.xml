@@ -1,10 +1,16 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dakenviy">
     <words>
+      <w>autoprefixer</w>
       <w>axios</w>
       <w>eslint</w>
+      <w>gridle</w>
+      <w>lodash</w>
+      <w>marko</w>
       <w>onerror</w>
+      <w>postcss</w>
       <w>redux</w>
+      <w>scss</w>
       <w>todos</w>
     </words>
   </dictionary>

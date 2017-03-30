@@ -34,6 +34,7 @@ export const reducer = handleActions({
     let entities = [].concat(payload);
     let byId = keyBy(entities, (m) => m.id);
     let orderedIds = map(entities, (m) => m.id); // better than Object.keys to preserve order
+
     return {
       byId: { ...state.byId, ...byId },
       ids: union(state.ids, orderedIds),

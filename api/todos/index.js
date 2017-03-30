@@ -5,11 +5,11 @@
 
 import db from '../../lib/db';
 
-function wait (ms) { return (cb) => setTimeout(cb, ms); }
+// function wait (ms) { return (cb) => setTimeout(cb, ms); }
 
 function *all () {
   const { response } = this;
-  yield wait(200); // fake delay
+  // yield wait(2000); // fake delay
   response.body = db.todos;
 }
 
@@ -22,7 +22,7 @@ function *create () {
     completed: false,
   };
   db.todos.push(todo);
-  yield wait(200); // fake delay
+  // yield wait(2000); // fake delay
   response.body = todo;
 }
 

@@ -1,11 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import co from 'co';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 
-import createMainStore from '../../app/store';
 import * as api from './api';
 
 function renderApp (store, props) {
@@ -22,6 +20,7 @@ function renderApp (store, props) {
 
 function *all (next) {
   const routes = require('../../app/routes').default; // enable hot reload server-side
+  const createMainStore = require('../../app/store').default; // enable hot reload server-side
   let location = this.url;
   let redirectLocation, renderProps;
 
@@ -55,7 +54,7 @@ function *all (next) {
       return function thunk ({ dispatch, getState }) {
         return (nxt) => (action) =>
           (typeof action === 'function')
-            ? asyncActions[asyncActions.length] = action(dispatch, getState, arg)
+            ? asyncActions.push(action(dispatch, getState, arg))
             : nxt(action);
       };
     },
@@ -70,19 +69,6 @@ function *all (next) {
   this.renderSync(__dirname, 'index', {
     html, state: store.getState(),
   });
-
-  // this.renderSync(__dirname, 'index', {
-  //   // Async template data, returns a promise handled by pug
-  //   getRenderedApp: co(function *() {
-  //     let reduxStore = createMainStore({}, api, thunkMiddleware);
-  //     let html = renderApp(reduxStore, renderProps);
-  //     if (asyncActions.length) {
-  //       yield asyncActions;
-  //       html = renderApp(reduxStore, renderProps);
-  //     }
-  //     return { html, state: reduxStore.getState() };
-  //   }).catch((err) => this.app.emit('error', err)),
-  // });
 }
 
 

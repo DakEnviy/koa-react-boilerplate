@@ -2,8 +2,6 @@ import path from 'path';
 import koaRouter from 'koa-router';
 import { forEach } from 'lodash';
 import pug from 'pug';
-// import marko from 'marko';
-
 import config from '../lib/config';
 import errorHandler from './errors';
 
@@ -31,18 +29,11 @@ export default function setup (app) {
   app.use(function *(next) {
     function getTpl (tplPath, name) {
       return pug.compileFile(path.join(tplPath, 'templates', name + '.pug'));
-      // return marko.load(path.join(tplPath, 'templates', name + '.marko'), { writeToDisk: false });
     }
 
     Object.assign(this, {
-      // render (routePath, tplName, locals = {}) {
-      //   this.type = 'text/html';
-      //   // this.body = getTpl(routePath, tplName).stream({ $global, ...locals });
-      //   this.body = getTpl(routePath, tplName)({ $global, ...locals });
-      // },
       renderSync (routePath, tplName, locals = {}) {
         this.type = 'text/html';
-        // this.body = getTpl(routePath, tplName).renderToString({ $global, ...locals });
         this.body = getTpl(routePath, tplName)({ global, ...locals });
       },
     });

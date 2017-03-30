@@ -14,11 +14,6 @@ import 'assets/icons/add.svg';
 
 class Todos extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {};
-  }
-
   componentWillMount () { // fired on server + client
     let { todos, actions } = this.props;
     if (!todos.length) {

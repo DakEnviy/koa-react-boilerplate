@@ -15,15 +15,6 @@
   @return $emSize + 0em;
 }
 
-// breakpoint
-@mixin mq($query) {
-  $query-string: mq-parse-query($query);
-
-  @media #{$query-string} {
-    @content;
-  }
-}
-
 @function mq-parse-query($query) {
   $length: length($query);
   $mq: 'all ';
@@ -44,4 +35,13 @@
     $mq: $mq + 'and (' + nth($query, 1) + ': ' + nth($query, 2) + ')';
   }
   @return $mq;
+}
+
+// breakpoint
+@mixin mq($query) {
+  $query-string: mq-parse-query($query);
+
+  @media #{$query-string} {
+    @content;
+  }
 }
